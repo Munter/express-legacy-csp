@@ -1,0 +1,48 @@
+{
+  "name": "express-legacy-csp",
+  "version": "0.0.0",
+  "description": "Downgrade content-security-policy version and fidelity to support the requesting browser",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha",
+    "travis": "npm test && npm run lint && npm run coverage && (<coverage/lcov.info coveralls || true)",
+    "coverage": "NODE_ENV=development nyc --reporter=lcov --reporter=text --all -- mocha && echo google-chrome coverage/lcov-report/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Munter/express-legacy-csp.git"
+  },
+  "keywords": [
+    "CSP",
+    "express",
+    "server",
+    "content",
+    "security",
+    "policy",
+    "legacy",
+    "browser",
+    "downgrade"
+  ],
+  "author": "Peter Müller <munter@fumle.dk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Munter/express-legacy-csp/issues"
+  },
+  "homepage": "https://github.com/Munter/express-legacy-csp#readme",
+  "devDependencies": {
+    "coveralls": "^2.11.16",
+    "eslint": "^3.15.0",
+    "eslint-config-onelint": "^2.0.0",
+    "express": "^4.14.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "unexpected": "^10.25.0",
+    "unexpected-express": "^8.3.3"
+  },
+  "nyc": {
+    "include": [
+      "lib/**"
+    ]
+  }
+}
