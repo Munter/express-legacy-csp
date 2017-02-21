@@ -1,4 +1,4 @@
-const expect = require('unexpected');
+const expect = require('unexpected').clone();
 const downgradeCsp2ToCsp1 = require('../lib/downgradeCsp2ToCsp1');
 const parseCsp = require('../lib/parseCsp');
 
