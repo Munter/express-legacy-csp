@@ -10,12 +10,16 @@ beforeEach(() => {
     headerName = 'Content-Security-Policy';
 });
 
-expect.addAssertion('<string> to come out as <string|undefined>', (expect, subject, value) => {
+expect.addAssertion('<string|array> to come out as <string|array|undefined>', (expect, subject, value) => {
     return expect(
         express()
             .use(expressLegacyCsp())
             .use((req, res, next) => {
-                res.setHeader('Content-Security-Policy', subject);
+                if (Array.isArray(subject)) {
+                    subject.forEach(headerValue => res.append('Content-Security-Policy', headerValue));
+                } else {
+                    res.setHeader('Content-Security-Policy', subject);
+                }
                 res.status(200).end();
             }),
         'to yield exchange', {
@@ -23,6 +27,22 @@ expect.addAssertion('<string> to come out as <string|undefined>', (expect, subje
             response: { headers: { [headerName]: value } }
         }
     );
+});
+
+describe('with multiple CSP headers', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+    it('should process all headers', function () {
+        return expect([
+            "script-src somewhere.com/with/a/path",
+            "script-src 'nonce-foo'"
+        ], 'to come out as', [
+            "script-src somewhere.com",
+            "script-src 'unsafe-inline'"
+        ]);
+    });
 });
 
 describe('in Safari 10', function () {
