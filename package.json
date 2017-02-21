@@ -27,7 +27,7 @@
   "author": "Peter Müller <munter@fumle.dk>",
   "license": "MIT",
   "engines": {
-    "node" : ">= 6"
+    "node": ">= 6"
   },
   "bugs": {
     "url": "https://github.com/Munter/express-legacy-csp/issues"

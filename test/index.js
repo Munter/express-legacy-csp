@@ -25,6 +25,37 @@ expect.addAssertion('<string> to come out as <string|undefined>', (expect, subje
     );
 });
 
+describe('in Safari 10', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14';
+    });
+
+    it('should downgrade to CSP 2', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com/with/a/path 'unsafe-inline'");
+    });
+});
+
+describe('in Safari 7', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should downgrade to CSP 1', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
+describe('in Safari 6', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17';
+        headerName = 'X-Webkit-CSP';
+    });
+
+    it('should downgrade to CSP 1 and switch to the X-Webkit-CSP header', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
 describe('in Safari 8', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12';
@@ -40,6 +71,16 @@ describe('in Safari 8', function () {
 
     it('should dedupe after stripping the path', () => {
         return expect('script-src somewhere.com/with/a/path somewhere.com/with/another/path', 'to come out as', 'script-src somewhere.com');
+    });
+});
+
+describe('in Safari 5', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1';
+    });
+
+    it('should remove the Content-Security-Policy header', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', undefined);
     });
 });
 
