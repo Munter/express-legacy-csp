@@ -40,5 +40,12 @@ describe('downgradeCsp3ToCsp2', () => {
     it("should leave 'sha...'", () => {
         expect("script-src 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='", 'to come out as', "script-src 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='");
     });
-});
 
+    it("should replace 'strict-dynamic' with 'unsafe-inline'", () => {
+        expect("script-src 'strict-dynamic'", 'to come out as', "script-src 'unsafe-inline'");
+    });
+
+    it("should leave 'unsafe-inline' when removing 'strict-dynamic'", () => {
+        expect("script-src 'unsafe-inline' 'strict-dynamic'", 'to come out as', "script-src 'unsafe-inline'");
+    });
+});
