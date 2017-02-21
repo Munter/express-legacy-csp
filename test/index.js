@@ -36,11 +36,11 @@ describe('with multiple CSP headers', function () {
     });
     it('should process all headers', function () {
         return expect([
-            "script-src somewhere.com/with/a/path",
-            "script-src 'nonce-foo'"
+            'script-src somewhere.com/with/a/path',
+            'script-src \'nonce-foo\''
         ], 'to come out as', [
-            "script-src somewhere.com",
-            "script-src 'unsafe-inline'"
+            'script-src somewhere.com',
+            'script-src \'unsafe-inline\''
         ]);
     });
 });
