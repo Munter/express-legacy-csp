@@ -49,6 +49,7 @@
     ]
   },
   "dependencies": {
+    "caniuse-db": "1.0.30000624",
     "semver": "^5.3.0",
     "useragent": "^2.1.12"
   }
