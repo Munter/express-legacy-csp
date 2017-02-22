@@ -104,6 +104,16 @@ describe('in Safari 5', function () {
     });
 });
 
+describe('in Firefox 51', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0';
+    });
+
+    it('should not have CSP level 2 constructs downgraded, even though caniusedb says "a #7"', function () {
+        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+    });
+});
+
 describe('in IE10', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)';
