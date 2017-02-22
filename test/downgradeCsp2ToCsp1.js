@@ -25,6 +25,10 @@ expect.addAssertion('<object|string> to come out as <object|string>', (expect, s
 });
 
 describe('downgradeCsp2ToCsp1', () => {
+    it('should leave all directives not ending in -src untouched', () => {
+        expect('report-uri http://mntr.dk', 'to come out as', 'report-uri http://mntr.dk');
+    });
+
     it('should leave unsafe-inline', () => {
         expect("script-src 'unsafe-inline'", 'to come out as', "script-src 'unsafe-inline'");
     });
