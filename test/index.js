@@ -114,6 +114,16 @@ describe('in Firefox 51', function () {
     });
 });
 
+describe('in Edge 13', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
+    });
+
+    it('should have CSP level 2 constructs downgraded', function () {
+        return expect("script-src somewhere.com/with/a/path 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
 describe('in IE10', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)';
