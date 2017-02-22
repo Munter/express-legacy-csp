@@ -4,10 +4,12 @@ const expect = require('unexpected').clone()
 const expressLegacyCsp = require('../');
 
 let userAgentString;
-let headerName;
+let inputHeaderName;
+let expectedOutputHeaderName;
 beforeEach(() => {
     userAgentString = undefined;
-    headerName = 'Content-Security-Policy';
+    inputHeaderName = 'Content-Security-Policy';
+    expectedOutputHeaderName = 'Content-Security-Policy';
 });
 
 expect.addAssertion('<string|array> to come out as <string|array|undefined>', (expect, subject, value) => {
@@ -18,13 +20,13 @@ expect.addAssertion('<string|array> to come out as <string|array|undefined>', (e
                 if (Array.isArray(subject)) {
                     subject.forEach(headerValue => res.append('Content-Security-Policy', headerValue));
                 } else {
-                    res.setHeader('Content-Security-Policy', subject);
+                    res.setHeader(inputHeaderName, subject);
                 }
                 res.status(200).end();
             }),
         'to yield exchange', {
             request: { headers: { 'User-Agent': userAgentString } },
-            response: { headers: { [headerName]: value } }
+            response: { headers: { [expectedOutputHeaderName]: value } }
         }
     );
 });
@@ -34,6 +36,7 @@ describe('with multiple CSP headers', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
     });
+
     it('should process all headers', function () {
         return expect([
             'script-src somewhere.com/with/a/path',
@@ -42,6 +45,33 @@ describe('with multiple CSP headers', function () {
             'script-src somewhere.com',
             'script-src \'unsafe-inline\''
         ]);
+    });
+});
+
+describe('with a "report only" CSP header', function () {
+    describe('in a browser that does not require the "base" header name to be changed', function () {
+        // Safari 7
+        beforeEach(() => {
+            inputHeaderName = expectedOutputHeaderName = 'Content-Security-Policy-Report-Only';
+            userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+        });
+
+        it('should process the header', function () {
+            return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com');
+        });
+    });
+
+    describe('in a browser that does require the "base" header name to be changed', function () {
+        // Safari 6
+        beforeEach(() => {
+            inputHeaderName = expectedOutputHeaderName = 'Content-Security-Policy-Report-Only';
+            expectedOutputHeaderName = 'X-Webkit-CSP-Report-Only';
+            userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17';
+        });
+
+        it('should process the header', function () {
+            return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com');
+        });
     });
 });
 
@@ -68,7 +98,7 @@ describe('in Safari 7', function () {
 describe('in Safari 6', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/536.26.17 (KHTML, like Gecko) Version/6.0.2 Safari/536.26.17';
-        headerName = 'X-Webkit-CSP';
+        expectedOutputHeaderName = 'X-Webkit-CSP';
     });
 
     it('should downgrade to CSP 1 and switch to the X-Webkit-CSP header', () => {
@@ -127,7 +157,7 @@ describe('in Edge 13', function () {
 describe('in IE10', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)';
-        headerName = 'X-Content-Security-Policy';
+        expectedOutputHeaderName = 'X-Content-Security-Policy';
     });
 
     it('should strip the path from a source expression without a scheme', () => {
