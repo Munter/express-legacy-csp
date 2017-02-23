@@ -42,6 +42,17 @@ describe('with an empty policy', function () {
     });
 });
 
+describe('with a browser that caniuse-db has data about in a version that is not explicitly mentioned', function () {
+    // Chrome 1
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.36 Safari/525.19';
+    });
+
+    it('should leave the CSP string unchanged', function () {
+        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+    });
+});
+
 describe('with a policy that has a trailing semicolon', function () {
     // Safari 7
     beforeEach(() => {
