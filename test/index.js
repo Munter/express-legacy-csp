@@ -75,23 +75,13 @@ describe('with a "report only" CSP header', function () {
     });
 });
 
-describe('in Safari 10', function () {
+describe('in Safari 5', function () {
     beforeEach(() => {
-        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14';
+        userAgentString = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1';
     });
 
-    it('should downgrade to CSP 2', () => {
-        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com/with/a/path 'unsafe-inline'");
-    });
-});
-
-describe('in Safari 7', function () {
-    beforeEach(() => {
-        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
-    });
-
-    it('should downgrade to CSP 1', () => {
-        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    it('should remove the Content-Security-Policy header', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', undefined);
     });
 });
 
@@ -102,6 +92,16 @@ describe('in Safari 6', function () {
     });
 
     it('should downgrade to CSP 1 and switch to the X-Webkit-CSP header', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
+describe('in Safari 7', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should downgrade to CSP 1', () => {
         return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
     });
 });
@@ -124,13 +124,13 @@ describe('in Safari 8', function () {
     });
 });
 
-describe('in Safari 5', function () {
+describe('in Safari 10', function () {
     beforeEach(() => {
-        userAgentString = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1';
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14';
     });
 
-    it('should remove the Content-Security-Policy header', () => {
-        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', undefined);
+    it('should downgrade to CSP 2', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com/with/a/path 'unsafe-inline'");
     });
 });
 
