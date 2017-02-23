@@ -45,6 +45,10 @@ describe('downgradeCsp2ToCsp1', () => {
         expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com');
     });
 
+    it('should strip the path from a source expression with a port', () => {
+        expect('script-src somewhere.com:8888/with/a/path', 'to come out as', 'script-src somewhere.com:8888');
+    });
+
     it('should strip the path from a source expression with a scheme', () => {
         expect('script-src https://somewhere.com/with/a/path', 'to come out as', 'script-src https://somewhere.com');
     });
