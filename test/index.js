@@ -134,6 +134,16 @@ describe('in Safari 10', function () {
     });
 });
 
+describe('in Mobile Safari 9.0 (iOS 9)', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (iPad; CPU OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601.1';
+    });
+
+    it('should downgrade to CSP 1', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
 describe('in Firefox 51', function () {
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:51.0) Gecko/20100101 Firefox/51.0';
