@@ -31,6 +31,51 @@ expect.addAssertion('<string|array> to come out as <string|array|undefined>', (e
     );
 });
 
+describe('with an empty policy', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should output an empty policy', function () {
+        return expect('', 'to come out as', '');
+    });
+});
+
+describe('with a policy that has a trailing semicolon', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should remove the semicolon when reserializing', function () {
+        return expect('foo;', 'to come out as', 'foo');
+    });
+});
+
+describe('with a policy that has a leading semicolon', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should remove the semicolon when reserializing', function () {
+        return expect(';foo', 'to come out as', 'foo');
+    });
+});
+
+describe('with multiple directives', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should rejoin the directives with semicolon followed by a space', function () {
+        return expect('foo;bar', 'to come out as', 'foo; bar');
+    });
+});
+
+
 describe('with multiple CSP headers', function () {
     // Safari 7
     beforeEach(() => {
