@@ -48,6 +48,21 @@ describe('with multiple CSP headers', function () {
     });
 });
 
+describe('with multiple comma-separated policies in a single header', function () {
+    // Safari 7
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A';
+    });
+
+    it('should each contained policy individually and reassemble them', function () {
+        return expect(
+            "script-src somewhere.com/with/a/path, script-src 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='",
+            'to come out as',
+            "script-src somewhere.com, script-src 'unsafe-inline'"
+        );
+    });
+});
+
 describe('with a "report only" CSP header', function () {
     describe('in a browser that does not require the "base" header name to be changed', function () {
         // Safari 7
