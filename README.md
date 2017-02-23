@@ -2,7 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/express-legacy-csp.svg)](http://badge.fury.io/js/express-legacy-csp)
 [![Build Status](https://travis-ci.org/Munter/express-legacy-csp.svg?branch=master)](https://travis-ci.org/Munter/express-legacy-csp)
-[![Coverage Status](https://coveralls.io/repos/Munter/express-legacy-csp/badge.svg)](https://coveralls.io/r/Munter/express-legacy-csp)
+[![Coverage Status](https://coveralls.io/repos/github/Munter/express-legacy-csp/badge.svg?branch=master)](https://coveralls.io/github/Munter/express-legacy-csp?branch=master)
 [![Dependency Status](https://david-dm.org/Munter/express-legacy-csp.svg)](https://david-dm.org/Munter/express-legacy-csp)
 
 Generating a [content-security-policy](https://www.w3.org/TR/CSP/) that works correctly in all the browsers you support is hard work.
