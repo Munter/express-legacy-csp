@@ -57,8 +57,7 @@ describe('preprocessCaniuseData', function () {
     it('should explode version ranges spanning several minor versions', function () {
         expect({ie: { '10.1-10.2': 'y' }}, 'to support', 'ie', 10, 1)
             .and('to support', 'ie', 10, 2)
-            .and('to be undecided about', 'ie', 10, 0)
-            .and('to be undecided about', 'ie', 10, 3);
+            .and('to be undecided about', 'ie', 10, 0);
     });
 
     it('should explode version ranges spanning several major and minor versions', function () {
@@ -69,8 +68,7 @@ describe('preprocessCaniuseData', function () {
             .and('to support', 'ie', 11, 0)
             .and('to support', 'ie', 11, 20)
             .and('to support', 'ie', 12, 0)
-            .and('to support', 'ie', 12, 1)
-            .and('to be undecided about', 'ie', 12, 2);
+            .and('to support', 'ie', 12, 1);
     });
 
     it('should support multiple non-overlapping ranges', function () {
@@ -84,8 +82,49 @@ describe('preprocessCaniuseData', function () {
             .and('to support', 'ie', 11, 0)
             .and('to support', 'ie', 11, 20)
             .and('to support', 'ie', 12, 0)
-            .and('to support', 'ie', 12, 1)
-            .and('to be undecided about', 'ie', 12, 2);
+            .and('to support', 'ie', 12, 1);
+    });
+
+    describe('when there is only data about older versions of the browser being queried', function () {
+        describe('when the highest known version is given as major', function () {
+            it('should assume that the newer version is supported when the highest known version is', function () {
+                expect({ie: { '10': 'y' }}, 'to support', 'ie', 11);
+            });
+
+            it('should assume that the newer version is not supported when the highest known version is not', function () {
+                expect({ie: { '10': 'n' }}, 'not to support', 'ie', 11);
+            });
+        });
+
+        describe('when the highest known version is given as major.minor', function () {
+            it('should assume that the newer version is supported when the highest known version is', function () {
+                expect({ie: { '10.5': 'y' }}, 'to support', 'ie', 11);
+            });
+
+            it('should assume that the newer version is not supported when the highest known version is not', function () {
+                expect({ie: { '10.5': 'n' }}, 'not to support', 'ie', 11);
+            });
+        });
+
+        describe('when the highest known version is given as major.minor.patch', function () {
+            it('should assume that the newer version is supported when the highest known version is', function () {
+                expect({ie: { '10.5.8': 'y' }}, 'to support', 'ie', 11);
+            });
+
+            it('should assume that the newer version is not supported when the highest known version is not', function () {
+                expect({ie: { '10.5.8': 'n' }}, 'not to support', 'ie', 11);
+            });
+        });
+
+        describe('when the highest known version is given as a range', function () {
+            it('should assume that the newer version is supported when the highest known version is', function () {
+                expect({ie: { '10.2-10.4': 'y' }}, 'to support', 'ie', 11);
+            });
+
+            it('should assume that the newer version is not supported when the highest known version is not', function () {
+                expect({ie: { '10.2-10.4': 'n' }}, 'not to support', 'ie', 11);
+            });
+        });
     });
 
     describe('when there is no data about the browser being queried', function () {
