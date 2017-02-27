@@ -42,14 +42,14 @@ describe('with an empty policy', function () {
     });
 });
 
-describe('with a browser that caniuse-db has data about in a version that is not explicitly mentioned', function () {
+describe('with a browser that caniuse-db has data about in a version that is older than all the explicitly mentioned ones', function () {
     // Chrome 1
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.36 Safari/525.19';
     });
 
-    it('should leave the CSP string unchanged', function () {
-        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+    it('should assume that CSP is not supported and strip the header', function () {
+        return expect('script-src somewhere.com/with/a/path', 'to come out as', undefined);
     });
 });
 
