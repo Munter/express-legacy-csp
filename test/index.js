@@ -42,14 +42,14 @@ describe('with an empty policy', function () {
     });
 });
 
-describe('with a browser that caniuse-db has data about in a version that is not explicitly mentioned', function () {
+describe('with a browser that caniuse-db has data about in a version that is older than all the explicitly mentioned ones', function () {
     // Chrome 1
     beforeEach(() => {
         userAgentString = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.36 Safari/525.19';
     });
 
-    it('should leave the CSP string unchanged', function () {
-        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+    it('should assume that CSP is not supported and strip the header', function () {
+        return expect('script-src somewhere.com/with/a/path', 'to come out as', undefined);
     });
 });
 
@@ -85,7 +85,6 @@ describe('with multiple directives', function () {
         return expect('foo;bar', 'to come out as', 'foo; bar');
     });
 });
-
 
 describe('with multiple CSP headers', function () {
     // Safari 7
@@ -143,6 +142,16 @@ describe('with a "report only" CSP header', function () {
         it('should process the header', function () {
             return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com');
         });
+    });
+});
+
+describe('in Chrome 28 on Android 4.4.2', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Linux; Android 4.4.2: sv-se; SAMSUNG SM-C115 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.6 Chrome/28.0.1500.94 Mobile Safari/537.36';
+    });
+
+    it('should strip the Content-Security-Policy header', () => {
+        return expect("script-src somewhere.com/with/a/path 'strict-dynamic'", 'to come out as', undefined);
     });
 });
 
