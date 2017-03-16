@@ -301,3 +301,8 @@ describe('in an unknown browser', function () {
         return expect("script-src 'strict-dynamic'", 'to come out as', "script-src 'strict-dynamic'");
     });
 });
+
+it('should not crash when the parsed version number is not accepted by the semver module due to leading zeroes', function () {
+    userAgentString = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_3) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/999.01.782.220 Safari/535.1';
+    return expect("script-src 'strict-dynamic'", 'to come out as', "script-src 'unsafe-inline'");
+});
