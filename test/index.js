@@ -42,7 +42,7 @@ describe('with an empty policy', function () {
     });
 
     it('should output an empty policy', function () {
-        return expect('', 'to come out as', '');
+        return expect('', 'to be left intact');
     });
 });
 
@@ -234,7 +234,7 @@ describe('in Firefox 51', function () {
     });
 
     it('should not have CSP level 2 constructs downgraded, even though caniusedb says "a #7"', function () {
-        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+        return expect('script-src somewhere.com/with/a/path', 'to be left intact');
     });
 });
 
@@ -280,7 +280,7 @@ describe('in a CSP2 compliant browser', () => {
     });
 
     it('should keep CSP2 constructs', () => {
-        return expect('script-src somewhere.com/with/a/path', 'to come out as', 'script-src somewhere.com/with/a/path');
+        return expect('script-src somewhere.com/with/a/path', 'to be left intact');
     });
 });
 
@@ -312,7 +312,7 @@ describe('in an unknown browser', function () {
     });
 
     it('should preserve the CSP as-is', function () {
-        return expect("script-src 'strict-dynamic'", 'to come out as', "script-src 'strict-dynamic'");
+        return expect("script-src 'strict-dynamic'", 'to be left intact');
     });
 });
 
