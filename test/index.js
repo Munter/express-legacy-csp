@@ -31,6 +31,10 @@ expect.addAssertion('<string|array> to come out as <string|array|undefined>', (e
     );
 });
 
+expect.addAssertion('<string|array> to be left intact', (expect, subject) =>
+    expect(subject, 'to come out as', subject)
+);
+
 describe('with an empty policy', function () {
     // Safari 7
     beforeEach(() => {
@@ -241,6 +245,16 @@ describe('in Edge 13', function () {
 
     it('should have CSP level 2 constructs downgraded', function () {
         return expect("script-src somewhere.com/with/a/path 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='", 'to come out as', "script-src somewhere.com 'unsafe-inline'");
+    });
+});
+
+describe('in Edge 15', function () {
+    beforeEach(() => {
+        userAgentString = 'Mozilla/5.0 (Windows NT 10.0; ARM; RM-1141) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.14977';
+    });
+
+    it('should leave CSP level 2 constructs intact', function () {
+        return expect("script-src somewhere.com/with/a/path 'sha256-XeYlw2NVzOfB1UCIJqCyGr+0n7bA4fFslFpvKu84IAw='", 'to be left intact');
     });
 });
 
