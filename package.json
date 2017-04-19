@@ -1,6 +1,6 @@
 {
   "name": "express-legacy-csp",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Downgrade content-security-policy version and fidelity to support the requesting browser",
   "main": "lib/index.js",
   "scripts": {
