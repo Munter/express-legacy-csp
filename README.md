@@ -11,7 +11,7 @@ Because of the different level of support of the CSP specifications, and some ti
 
 NOT ANY MORE!
 
-express-legacy-csp is a middleware that sits at the top of your stack and analyses the user agent header and the content-security-policy of the response object. Based on these two pieces of data it will generate a version of your policy which is specifically tailored to the capabilities of the requesting browser.
+express-legacy-csp is a middleware that sits at the top of your stack and analyses the user agent header and the `Content-Security-Policy` of the response. Based on these two pieces of data it will generate a version of your policy which is specifically tailored to the capabilities of the requesting browser.
 
 This means you can serve [CSP3](https://www.w3.org/TR/CSP3/) with maximum security settings, but still support older versions of Chrome that only support [CSP2](https://www.w3.org/TR/CSP2/), or even older browsers like Safari 6 with [CSP1](https://www.w3.org/TR/CSP1/)-support.
 
@@ -26,10 +26,10 @@ There is a tiny performance bonus of sending fewer bytes over the wire when send
 
 Browser detection is done using [useragent](https://www.npmjs.com/package/useragent). Based on data from [caniuse.com](http://caniuse.com/#search=csp) the decision is made wether to downgrade your policy level or apply other changes.
 
-A CSP version is only deemed supported if the teh caniuse data has no notes attached. If the support is none or has notes, the CSP version will be dropped down one level. There is a specific exception for IE, where a non-standard header is needed to get even CSP1 support.
+A CSP version is only deemed supported if the the caniuse data has no notes attached. If the support is none or has notes, the CSP version will be dropped down one level. There is a specific exception for IE, where a non-standard header is needed to get even CSP1 support.
 
 Resolutions that are cached for runtime performance in a production setup:
-- Resolving a user-agent string to a browser family and version
+- Resolving a `User-Agent` string to a browser family and version
 - Resolving a browser family and version to header name and CSP capabilities
 - Downgrade of a unique CSP to corresponding lower version of the same CSP
 
