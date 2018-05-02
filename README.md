@@ -35,8 +35,8 @@ Resolutions that are cached for runtime performance in a production setup:
 
 ### CSP3 to CSP2 downgrade
 
-- ['unsafe-hashed-attributes'](https://www.w3.org/TR/CSP3/#unsafe-hashed-attributes-usage) are replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
-- ['strict-dynamic'](https://www.w3.org/TR/CSP3/#strict-dynamic-usage) are replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
+- ['unsafe-hashed-attributes'](https://www.w3.org/TR/CSP3/#unsafe-hashed-attributes-usage) is replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
+- ['strict-dynamic'](https://www.w3.org/TR/CSP3/#strict-dynamic-usage) is replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
 
 
 ### CSP2 to CSP1 downgrade
