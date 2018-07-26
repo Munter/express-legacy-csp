@@ -60,7 +60,7 @@ express()
     .use(someCspGeneratingMiddleware);
 ```
 
-Both camelCased and snake-cased directive names are supported, and you
+Both camelCased and kebab-cased directive names are supported, and you
 can supply the tokens to add as either a string or an array of strings.
 
 ## Licence
