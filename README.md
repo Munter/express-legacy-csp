@@ -17,14 +17,14 @@ This means you can serve [CSP3](https://www.w3.org/TR/CSP3/) with maximum securi
 
 express-legacy-csp fixes other quirks in old implementations, like renaming the header that contains the policy.
 
-Unless a browsers capabilities and quirks are explicitly known, your policy will pass through untouched.
+Unless a browser's capabilities and quirks are explicitly known, your policy will pass through untouched.
 
 There is a tiny performance bonus of sending fewer bytes over the wire when sending CSP1 instead of CSP2. We have not done any research on the performance improvements this results in. It's most likely that these are negligible.
 
 
 ## How it works
 
-Browser detection is done using [useragent](https://www.npmjs.com/package/useragent). Based on data from [caniuse.com](http://caniuse.com/#search=csp) the decision is made wether to downgrade your policy level or apply other changes.
+Browser detection is done using [useragent](https://www.npmjs.com/package/useragent). Based on data from [caniuse.com](http://caniuse.com/#search=csp) the decision is made whether to downgrade your policy level or apply other changes.
 
 A CSP version is only deemed supported if the the caniuse data has no notes attached. If the support is none or has notes, the CSP version will be dropped down one level. There is a specific exception for IE, where a non-standard header is needed to get even CSP1 support.
 
