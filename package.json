@@ -37,10 +37,12 @@
   "devDependencies": {
     "coveralls": "^3.0.2",
     "eslint": "^5.2.0",
-    "eslint-config-onelint": "^4.0.0",
+    "eslint-config-pretty-standard": "^2.0.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "express": "^4.16.3",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
+    "prettier": "^1.13.7",
     "unexpected": "^10.38.0",
     "unexpected-express": "^11.0.0"
   },
