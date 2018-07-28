@@ -428,28 +428,26 @@ it('should not crash when the parsed version number is not accepted by the semve
 });
 
 describe('with CSP2 directives', function() {
-  describe('frame-ancestors', function() {
-    describe('in CSP2 capable browsers', function() {
-      it('should keep the directive in Safari 10.1', function() {
-        userAgentString =
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8';
-        return expect(
-          "frame-ancestors 'none'; script-src 'self'",
-          'to be left intact'
-        );
-      });
+  describe('in CSP2 capable browsers', function() {
+    it('should keep the directives in Safari 10.1', function() {
+      userAgentString =
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8';
+      return expect(
+        "frame-ancestors 'none'; child-src 'self'; manifest-src 'self'; script-src 'self'",
+        'to be left intact'
+      );
     });
+  });
 
-    describe('in CSP1 capable browsers', function() {
-      it('should drop the directive in Safari 9.1', function() {
-        userAgentString =
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8';
-        return expect(
-          "frame-ancestors 'none'; script-src 'self'",
-          'to come out as',
-          "script-src 'self'"
-        );
-      });
+  describe('in CSP1 capable browsers', function() {
+    it('should drop the directives in Safari 9.1', function() {
+      userAgentString =
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.8 (KHTML, like Gecko) Version/9.1.3 Safari/601.7.8';
+      return expect(
+        "frame-ancestors 'none'; child-src 'self'; manifest-src 'self'; script-src 'self'",
+        'to come out as',
+        "script-src 'self'"
+      );
     });
   });
 });
