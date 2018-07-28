@@ -42,6 +42,8 @@ Resolutions that are cached for runtime performance in a production setup:
 
 - All [source-expressions](https://www.w3.org/TR/CSP2/#source_expression) have their paths stripped
 - All [nonces](https://www.w3.org/TR/CSP2/#script-src-the-nonce-attribute) and [hashes](https://www.w3.org/TR/CSP2/#source-list-valid-hashes) are replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
+- Directives that would cause unsupported warnings in the Developer console, such as
+  `frame-ancestors`, are dropped.
 
 ## Usage
 
