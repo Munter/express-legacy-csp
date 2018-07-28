@@ -50,9 +50,9 @@
     ]
   },
   "dependencies": {
-    "caniuse-db": "^1.0.30000655",
-    "memoizesync": "1.0.0",
-    "semver": "^5.3.0",
-    "useragent": "^2.2.1"
+    "caniuse-db": "^1.0.30000871",
+    "memoizesync": "^1.1.1",
+    "semver": "^5.5.0",
+    "useragent": "^2.3.0"
   }
 }
