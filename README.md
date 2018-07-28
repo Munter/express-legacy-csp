@@ -21,7 +21,6 @@ Unless a browser's capabilities and quirks are explicitly known, your policy wil
 
 There is a tiny performance bonus of sending fewer bytes over the wire when sending CSP1 instead of CSP2. We have not done any research on the performance improvements this results in. It's most likely that these are negligible.
 
-
 ## How it works
 
 Browser detection is done using [useragent](https://www.npmjs.com/package/useragent). Based on data from [caniuse.com](http://caniuse.com/#search=csp) the decision is made whether to downgrade your policy level or apply other changes.
@@ -29,6 +28,7 @@ Browser detection is done using [useragent](https://www.npmjs.com/package/userag
 A CSP version is only deemed supported if the the caniuse data has no notes attached. If the support is none or has notes, the CSP version will be dropped down one level. There is a specific exception for IE, where a non-standard header is needed to get even CSP1 support.
 
 Resolutions that are cached for runtime performance in a production setup:
+
 - Resolving a `User-Agent` string to a browser family and version
 - Resolving a browser family and version to header name and CSP capabilities
 - Downgrade of a unique CSP to corresponding lower version of the same CSP
@@ -38,13 +38,10 @@ Resolutions that are cached for runtime performance in a production setup:
 - ['unsafe-hashed-attributes'](https://www.w3.org/TR/CSP3/#unsafe-hashed-attributes-usage) is replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
 - ['strict-dynamic'](https://www.w3.org/TR/CSP3/#strict-dynamic-usage) is replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
 
-
 ### CSP2 to CSP1 downgrade
 
 - All [source-expressions](https://www.w3.org/TR/CSP2/#source_expression) have their paths stripped
 - All [nonces](https://www.w3.org/TR/CSP2/#script-src-the-nonce-attribute) and [hashes](https://www.w3.org/TR/CSP2/#source-list-valid-hashes) are replaced with ['unsafe-inline'](https://www.w3.org/TR/CSP2/#source-list-syntax)
-
-
 
 ## Usage
 
@@ -56,8 +53,8 @@ const express = require('express');
 const expressLegacyCsp = require('express-legacy-csp');
 
 express()
-    .use(expressLegacyCsp())
-    .use(someCspGeneratingMiddleware);
+  .use(expressLegacyCsp())
+  .use(someCspGeneratingMiddleware);
 ```
 
 Both camelCased and kebab-cased directive names are supported, and you
