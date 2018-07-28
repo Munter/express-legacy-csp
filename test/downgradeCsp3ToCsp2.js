@@ -87,4 +87,12 @@ describe('downgradeCsp3ToCsp2', () => {
       "script-src 'unsafe-inline'"
     );
   });
+
+  it('should drop the directives that were introduced in CSP3', () => {
+    expect(
+      "manifest-src 'self'; worker-src; report-to https://example.com; script-src 'self'",
+      'to come out as',
+      "script-src 'self'"
+    );
+  });
 });
