@@ -52,7 +52,7 @@
     ]
   },
   "dependencies": {
-    "caniuse-db": "^1.0.30000871",
+    "caniuse-db": "^1.0.30000983",
     "lodash.omit": "^4.5.0",
     "memoizesync": "^1.1.1",
     "semver": "^5.5.0",
