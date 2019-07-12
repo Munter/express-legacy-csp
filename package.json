@@ -55,7 +55,7 @@
     "caniuse-db": "^1.0.30000983",
     "lodash.omit": "^4.5.0",
     "memoizesync": "^1.1.1",
-    "semver": "^5.5.0",
+    "semver": "^6.2.0",
     "useragent": "^2.3.0"
   }
 }
