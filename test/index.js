@@ -325,10 +325,10 @@ describe('in Edge 13', function() {
   });
 });
 
-describe('in Edge 15', function() {
+describe('in Edge 76', function() {
   beforeEach(() => {
     userAgentString =
-      'Mozilla/5.0 (Windows NT 10.0; ARM; RM-1141) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.14977';
+      'Mozilla/5.0 (Windows NT 10.0; ARM; RM-1141) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/76.14977';
   });
 
   it('should leave CSP level 2 constructs intact', function() {
