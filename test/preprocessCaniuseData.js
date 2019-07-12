@@ -70,15 +70,6 @@ describe('preprocessCaniuseData', function() {
     );
   });
 
-  it('should let exact major versions through', function() {
-    expect({ ie: { 11: 'y' } }, 'to support', 'ie', 11, 0).and(
-      'to support',
-      'ie',
-      11,
-      1
-    );
-  });
-
   it('should explode version ranges spanning several minor versions', function() {
     expect({ ie: { '10.1-10.2': 'y' } }, 'to support', 'ie', 10, 1)
       .and('to support', 'ie', 10, 2)
